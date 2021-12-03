@@ -74,7 +74,7 @@ Set-Cookie: prov=b201a6b2-e83a-a9ac-1bfc-48e5a1d00923; domain=.stackoverflow.com
 **Status Code: 200 **
 
 приложите скриншот консоли браузера в ответ.
-
+![alt text](03-sysadmin-06-net/screenshots/screen1.png)
 ##
 ## Вопрос 3. Какой IP адрес у вас в интернете?
 
