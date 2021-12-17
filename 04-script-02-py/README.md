@@ -62,8 +62,6 @@ bash_command = ["cd ~/netology/sysadm-homeworks", "git status"]
 
 result_os = os.popen (' && '.join(bash_command)).read()
 
-is_change = False
-
 for result in result_os.split('\n'):
 
   if result.find('modified') != -1:
@@ -88,7 +86,8 @@ exit
 
 import argparse
 
-import os #Добавляем возможность ввода git-дирректории через аргумент скрипта
+import os 
+ #Добавляем возможность ввода git-дирректории через аргумент скрипта
 
 parser = argparse.ArgumentParser(description='Need Path to repository')
 
@@ -192,10 +191,6 @@ while (1==1):
 
    good_ip[i] = service_ip
 
-   #print('\033[30m')
-
-   #print(good_ip[i])
-
    i+=1
 
  #Запускаем проверку ip-адресов
@@ -210,13 +205,11 @@ while (1==1):
 
    print('\033[30m', service, '-', service_ip)
 
-   # Если сервис сменил ip - выдаем ошибку, выходим из цикла 
-
-   # проверки, по-новой заполняем массих "хороших" ip, продолжа>
+   # Если сервис сменил ip - выдаем ошибку, выходим из цикла проверки, по-новой заполняем массив "хороших" ip, продолжаем проверку
 
    if service_ip != good_ip[i]:
 
-    print('\033[31m[ERROR]', service, 'IP mismatch:', good_ip[i>
+    print('\033[31m[ERROR]', service, 'IP mismatch:', good_ip[i], '\033[34m', service_ip)
 
     print(datetime.datetime.now())
 
@@ -230,14 +223,22 @@ while (1==1):
 
 **Вывод скрипта при запуске**
 
- drive.google.com - 74.125.131.194
+drive.google.com - 74.125.131.194
 
- mail.google.com - 64.233.165.19
+mail.google.com - 64.233.165.18
 
-[ERROR] mail.google.com IP mismatch: 64.233.165.18 64.233.165.19
+[ERROR] mail.google.com IP mismatch: 64.233.165.19 64.233.165.18
 
-2021-12-17 12:12:55.365500
+2021-12-17 12:53:21.445855
 
- drive.google.com - 74.125.131.194
+drive.google.com - 74.125.131.194
 
- mail.google.com - 64.233.165.19
+mail.google.com - 64.233.165.18
+
+google.com - 173.194.221.139
+
+drive.google.com - 74.125.131.194
+
+mail.google.com - 64.233.165.18
+
+google.com - 173.194.221.139
