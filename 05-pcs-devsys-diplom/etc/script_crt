@@ -1,0 +1,27 @@
+#!/bin/bash
+export VAULT_ADDR=http://127.0.0.1:8200
+#Задаем переменные для вывода времени
+D=$(date  +%Y-%m-%d)
+T=$(date +%H:%M:%S)
+vault status #Запускаем проверку состояния vault
+if [ $? -eq 0 ] #Если vault находится в состоянии unsealed
+then            #запускаем выпуск нового секртификата
+ vault write -format=json pki_int/issue/example-dot-com \
+  common_name="test.example.com" ttl="720h" > \
+  /etc/nginx/ssl/test.example.com.crt
+ cat /etc/nginx/ssl/test.example.com.crt | jq -r .data.certificate > \
+  /etc/nginx/ssl/test.example.com.pem
+ cat /etc/nginx/ssl/test.example.com.crt | jq -r .data.ca_chain[] >> \
+  /etc/nginx/ssl/test.example.com.pem
+ cat /etc/nginx/ssl/test.example.com.crt | jq -r .data.private_key > \
+  /etc/nginx/ssl/test.example.com.key
+ systemctl reload nginx
+ echo "The Certificate for NGINX was successfully updated at" "$D" "$T" >> \
+  /var/log/nginx/cert_update.log
+else #Если vault запечатан либо не запущен - выводим сообщение об ошибке
+ D=$(date  +%Y-%m-%d)
+ T=$(date +%H:%M:%S)
+ echo "ERROR" "$D" "$T" "The Vault Server is in the sealed state" >> \
+  /var/log/nginx/cert_update.log
+fi
+
