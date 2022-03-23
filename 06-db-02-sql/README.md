@@ -87,29 +87,31 @@ test_db=# \l
 - описание таблиц (describe)
 ```
 test_db=# \d orders
-                            Table "public.orders"
- Column |  Type   | Collation | Nullable |              Default               
---------+---------+-----------+----------+------------------------------------
- id     | integer |           | not null | nextval('orders_id_seq'::regclass)
- name   | text    |           |          | 
- price  | integer |           |          | 
+                            \d orders
+                               Table "public.orders"
+    Column    |  Type   | Collation | Nullable |              Default               
+--------------+---------+-----------+----------+------------------------------------
+ id           | integer |           | not null | nextval('orders_id_seq'::regclass)
+ Наименование | text    |           |          | 
+ Цена         | integer |           |          | 
 Indexes:
     "orders_pkey" PRIMARY KEY, btree (id)
 Referenced by:
-    TABLE "clients" CONSTRAINT "clients_oder_fkey" FOREIGN KEY (oder) REFERENCES orders(id)
+    TABLE "clients" CONSTRAINT "clients_Заказ_fkey" FOREIGN KEY ("Заказ") REFERENCES orders(id)
+
 
 test_db=# \d clients
-                             Table "public.clients"
- Column  |  Type   | Collation | Nullable |               Default               
----------+---------+-----------+----------+-------------------------------------
- id      | integer |           | not null | nextval('clients_id_seq'::regclass)
- surname | text    |           |          | 
- country | text    |           |          | 
- oder    | integer |           |          | 
+                            Table "public.clients"
+ Column |  Type   | Collation | Nullable |               Default               
+--------+---------+-----------+----------+-------------------------------------
+ id     | integer |           | not null | nextval('clients_id_seq'::regclass)
+ ФИО    | text    |           |          | 
+ Страна | text    |           |          | 
+ Заказ  | integer |           |          | 
 Indexes:
     "clients_pkey" PRIMARY KEY, btree (id)
 Foreign-key constraints:
-    "clients_oder_fkey" FOREIGN KEY (oder) REFERENCES orders(id)
+    "clients_Заказ_fkey" FOREIGN KEY ("Заказ") REFERENCES orders(id)
 ```
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
 ```
