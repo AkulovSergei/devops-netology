@@ -28,7 +28,7 @@ localhost                  : ok=3    changed=0    unreachable=0    failed=0    s
 
 2. Найдите файл с переменными (group_vars) в котором задаётся найденное в первом пункте значение и поменяйте его на 'all default fact'.
 ```
-ansible-playbook site.yml -i ~/ansible/playbook/inventory/test.yml
+$ ansible-playbook site.yml -i ~/ansible/playbook/inventory/test.yml
 
 PLAY [Print os facts] **********************************************************
 
@@ -52,14 +52,14 @@ localhost                  : ok=3    changed=0    unreachable=0    failed=0    s
 
 3. Воспользуйтесь подготовленным (используется `docker`) или создайте собственное окружение для проведения дальнейших испытаний.
 ```
-docker run --name centos7 -d pycontribs/centos:7 sleep 900000000000000000000
+$ docker run --name centos7 -d pycontribs/centos:7 sleep 900000000000000000000
 
-docker run --name ubuntu -d pycontribs/ubuntu sleep 900000000000000000000
+$ docker run --name ubuntu -d pycontribs/ubuntu sleep 900000000000000000000
 ```
 
 4. Проведите запуск playbook на окружении из `prod.yml`. Зафиксируйте полученные значения `some_fact` для каждого из `managed host`.
 ```
-ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml
+$ ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml
 
 PLAY [Print os facts] **********************************************************
 
@@ -93,7 +93,7 @@ ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    s
 
 6.  Повторите запуск playbook на окружении `prod.yml`. Убедитесь, что выдаются корректные значения для всех хостов.
 ```
-ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml
+$ ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml
 
 PLAY [Print os facts] **********************************************************
 
@@ -124,12 +124,12 @@ ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    s
 
 7. При помощи `ansible-vault` зашифруйте факты в `group_vars/deb` и `group_vars/el` с паролем `netology`.
 ```
-ansible-vault encrypt ~/ansible/playbook/group_vars/deb/examp.yml ~/ansible/playbook/group_vars/el/examp.yml
+$ ansible-vault encrypt ~/ansible/playbook/group_vars/deb/examp.yml ~/ansible/playbook/group_vars/el/examp.yml
 ```
 
 8. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь в работоспособности.
 ```
-ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml --ask-vault-password
+$ ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml --ask-vault-password
 Vault password: 
 
 PLAY [Print os facts] **********************************************************
@@ -172,13 +172,7 @@ local                          execute on controller
 
 11. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь что факты `some_fact` для каждого из хостов определены из верных `group_vars`.
 ```
-ansible-vault view ~/ansible/playbook/group_vars/deb/examp.yml ~/ansible/playbook/group_vars/el/examp.yml
-Vault password: 
----
-  some_fact: "deb default fact"
----
-  some_fact: "el default fact"
-uadmin@ub1:~/ansible/playbook$ ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml --ask-vault-password
+$ ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml --ask-vault-password
 Vault password: 
 
 PLAY [Print os facts] **********************************************************
@@ -217,22 +211,22 @@ ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    s
 ```
 
 12. Заполните `README.md` ответами на вопросы. Сделайте `git push` в ветку `master`. В ответе отправьте ссылку на ваш открытый репозиторий с изменённым `playbook` и заполненным `README.md`.
+
 [playbook](./playbook/)
-[README.md](./playbook/README.md)
 
 
 ## Необязательная часть
 
 1. При помощи `ansible-vault` расшифруйте все зашифрованные файлы с переменными.
 ```
-ansible-vault decrypt ~/ansible/playbook/group_vars/deb/examp.yml ~/ansible/playbook/group_vars/el/examp.yml
+$ ansible-vault decrypt ~/ansible/playbook/group_vars/deb/examp.yml ~/ansible/playbook/group_vars/el/examp.yml
 Vault password: 
 Decryption successful
 ```
 
 2. Зашифруйте отдельное значение `PaSSw0rd` для переменной `some_fact` паролем `netology`. Добавьте полученное значение в `group_vars/all/exmp.yml`.
 ```
-ansible-vault encrypt_string PaSSw0rd -n some_fact
+$ ansible-vault encrypt_string PaSSw0rd -n some_fact
 New Vault password: 
 Confirm New Vault password: 
 some_fact: !vault |
@@ -247,7 +241,7 @@ Encryption successful
 
 3. Запустите `playbook`, убедитесь, что для нужных хостов применился новый `fact`.
 ```
-ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml --ask-vault-password
+$ ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml --ask-vault-password
 Vault password: 
 
 PLAY [Print os facts] **********************************************************
@@ -286,10 +280,12 @@ ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    s
 ```
 
 4. Добавьте новую группу хостов `fedora`, самостоятельно придумайте для неё переменную. В качестве образа можно использовать [этот](https://hub.docker.com/r/pycontribs/fedora).
-` docker run --name fedora -d pycontribs/fedora sleep 900000000000000000000`
+```
+$ docker run --name fedora -d pycontribs/fedora sleep 900000000000000000000
+```
 
 ```
-ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml --ask-vault-password
+$ ansible-playbook site.yml -i ~/ansible/playbook/inventory/prod.yml --ask-vault-password
 Vault password: 
 
 PLAY [Print os facts] **********************************************************
@@ -343,10 +339,10 @@ docker run --name ubuntu -d --rm pycontribs/ubuntu sleep 900000000000000000000
 docker run --name fedora -d --rm pycontribs/fedora sleep 900000000000000000000
 ansible-playbook ~/ansible/playbook/site.yml -i ~/ansible/playbook/inventory/prod.yml --vault-password-file ~/ansible/playbook/pass
 docker stop centos7 ubuntu fedora
-
 ```
 
 6. Все изменения должны быть зафиксированы и отправлены в вашей личный репозиторий.
+
 [playbook](./playbook/)
 
 ---
