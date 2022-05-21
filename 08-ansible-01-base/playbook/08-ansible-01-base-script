@@ -1,0 +1,6 @@
+#!/bin/bash
+docker run --name centos7 -d --rm pycontribs/centos:7 sleep 900000000000000000000
+docker run --name ubuntu -d --rm pycontribs/ubuntu sleep 900000000000000000000
+docker run --name fedora -d --rm pycontribs/fedora sleep 900000000000000000000
+ansible-playbook ~/ansible/playbook/site.yml -i ~/ansible/playbook/inventory/prod.yml --vault-password-file ~/ansible/playbook/pass
+docker stop centos7 ubuntu fedora
