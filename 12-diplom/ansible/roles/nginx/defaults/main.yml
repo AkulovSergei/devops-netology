@@ -1,0 +1,13 @@
+---
+nginx_user: nginx
+domain_name: akulovnetology.ru
+www_domain_name: www.akulovnetology.ru
+www_proxy_addr: 'http://app.akulovnetology.ru'
+gitlab_domain_name: gitlab.akulovnetology.ru
+gitlab_proxy_addr: 'http://192.168.108.13'
+grafana_domain_name: grafana.akulovnetology.ru
+grafana_proxy_addr: 'http://192.168.108.14'
+prometheus_domain_name: prometheus.akulovnetology.ru
+prometheus_prory_addr: 'http://192.168.108.15'
+alertmanager_domain_name: alertmanager.akulovnetology.ru
+alertmanager_prory_addr: 'http://192.168.108.16'

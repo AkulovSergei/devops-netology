@@ -1,0 +1,61 @@
+---
+- name: Prometheus | Get bin
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ prometheus_install_url }}"
+    dest: /usr/local/bin/
+    remote_src: yes
+- name: Prometheus | Set ownership
+  become: true
+  ansible.builtin.file:
+    path: "{{ prometheus_bin_dir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+# Create data dir
+- name: Prometheus | Create data dir
+  become: true
+  ansible.builtin.file:
+    path: "{{ prometheus_data_dir }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: 0644
+# Create conf dir
+- name: Prometheus | Create config dir
+  become: true
+  ansible.builtin.file:
+    path: "{{ prometheus_conf_dir }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: 0644
+- name: Prometheus | Set ownership
+  become: true
+  ansible.builtin.file:
+    path: "{{ prometheus_conf_dir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+# Copy consoles dir
+- name: Prometheus | Copy consoles dir
+  become: true
+  ansible.builtin.copy:
+    src: "{{ prometheus_bin_dir }}/consoles"
+    dest: "{{ prometheus_conf_dir }}"
+    remote_src: yes
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: 0644
+# Copy console_libraries dir
+- name: Prometheus | Copy console dir
+  become: true
+  ansible.builtin.copy:
+    src: "{{ prometheus_bin_dir }}/console_libraries"
+    dest: "{{ prometheus_conf_dir }}"
+    remote_src: yes
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: 0644

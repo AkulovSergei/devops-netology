@@ -1,0 +1,19 @@
+---
+- name: LAMP | Apache Install
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ lamp_packages }}"
+- name: LAMP | Apache start
+  become: true
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: yes
+- name: LAMP | PHP-modules Install
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ php_modules }}"

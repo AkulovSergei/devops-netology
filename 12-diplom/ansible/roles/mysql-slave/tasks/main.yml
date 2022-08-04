@@ -1,0 +1,16 @@
+---
+- name: MySQL | Install packages
+  ansible.builtin.include_tasks:
+    file: install_mysql.yml
+- name: SELinux | Close
+  ansible.builtin.include_tasks:
+    file: selinux_close.yml
+- name: MySQL | Root user password
+  ansible.builtin.include_tasks:
+    file: root_user_master.yml
+- name: MySQL | Config slave
+  ansible.builtin.include_tasks:
+    file: config_slave.yml
+- name: MySQL | Config slave replication
+  ansible.builtin.include_tasks:
+    file: config_slave_replication.yml

@@ -1,0 +1,23 @@
+global:
+  smtp_from: alert@akulovnetology.ru
+#
+route:
+  group_by: ['alertname', 'instance', 'severity']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: send_email
+  routes:
+    - receiver: send_email
+      match:
+        alertname: monitor_service_down
+#
+receivers:
+- name: send_email
+  email_configs:
+  - to: akulov.su@gmail.com
+    send_resolved: true
+    smarthost: smtp.yandex.ru:587
+    auth_username: {{ auth_email_username }}
+    auth_password: {{ auth_email_password }}
+    require_tls: true

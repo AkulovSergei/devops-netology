@@ -1,0 +1,26 @@
+---
+- name: Grafana | Install requiment packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - adduser
+      - libfontconfig
+      - apt-transport-https
+    state: present
+- name: Grafana | Import Grafana GPG signing key
+  become: true
+  ansible.builtin.apt_key:
+    url: "https://packages.grafana.com/gpg.key"
+    state: present
+    validate_certs: false
+- name: Grafana | Add Grafana repository [Debian/Ubuntu]
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+    state: present
+    update_cache: true
+- name: Install Grafana
+  become: true
+  ansible.builtin.package:
+    name: grafana
+    state: latest

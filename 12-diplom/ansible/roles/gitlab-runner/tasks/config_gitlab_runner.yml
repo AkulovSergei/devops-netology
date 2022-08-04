@@ -1,0 +1,19 @@
+---
+# Set runner_token variable
+- name:  Gitlab-runner | Set runner_token variable
+  ansible.builtin.set_fact:
+    runner_token: "{{ hostvars['gitlab-server'].runner_token.stdout }}"
+# Register Gitlab runner
+- name: GitLab-runner | Register Runner
+  become: true
+  ansible.builtin.command: |
+    gitlab-runner register \
+    --non-interactive \
+    --url "{{ gitlab_external_url }}" \
+    --registration-token "{{ runner_token }}" \
+    --executor "shell" \
+    --description "shell executor" \
+    --tag-list "" \
+    --run-untagged="true" \
+    --locked="false" \
+    --access-level="ref_protected"

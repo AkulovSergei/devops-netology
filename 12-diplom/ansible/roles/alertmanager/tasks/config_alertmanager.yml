@@ -1,0 +1,37 @@
+# Create data dir
+- name: Alertmanager | Create data dir
+  become: true
+  ansible.builtin.file:
+    path: "{{ alertmanager_data_dir }}"
+    state: directory
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_user }}"
+    mode: 0644
+# Create conf dir
+- name: Alertmanager | Create config dir
+  become: true
+  ansible.builtin.file:
+    path: "{{ alertmanager_conf_dir }}"
+    state: directory
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_user }}"
+    mode: 0644
+# Config systemd service for Alertmanager
+- name: Alertmanager | Config and start service
+  become: true
+  ansible.builtin.template:
+    src: alertmanager.service.j2
+    dest: /etc/systemd/system/alertmanager.service
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_user }}"
+  notify: restart alertmanager
+# Config sending alerts
+- name: Alertmanager | Config sending alerts
+  become: true
+  ansible.builtin.template:
+    src: alertmanager.yml.j2
+    dest: "{{ alertmanager_conf_dir }}/alertmanager.yml"
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_user }}"
+    mode: 0644
+  notify: restart alertmanager

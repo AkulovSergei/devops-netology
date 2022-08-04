@@ -1,0 +1,40 @@
+---
+- name: Install and Configure Proxy Server
+  hosts: proxy
+  roles:
+    - nginx
+    - certbot
+    - nginx-https-config
+    - node-exporter
+- name: Install and Configure MySQL Master
+  hosts: db01
+  roles:
+    - mysql-master
+    - node-exporter
+- name: Install and Configure MySQL Slave
+  hosts: db02
+  roles:
+    - mysql-slave
+    - node-exporter
+- name: Install and Configure WordPress
+  hosts: app
+  roles:
+    - wordpress
+    - node-exporter
+- name: Install and Configure GitLab CE
+  hosts: gitlab-ce
+  roles:
+    - gitlab-ce
+    - node-exporter
+- name: Install and Configure GitLab Runner
+  hosts: gitlab-runner
+  roles:
+    - gitlab-runner
+    - node-exporter
+- name: Install and Configure Monitoring
+  hosts: monitoring
+  roles:
+    - node-exporter
+    - prometheus
+    - alertmanager
+    - grafana

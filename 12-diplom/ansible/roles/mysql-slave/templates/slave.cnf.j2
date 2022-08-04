@@ -1,0 +1,25 @@
+# The following options will be passed to all MySQL clients
+[client]
+#password       = your_password
+port = {{ mysql_port }}
+socket = {{ mysql_socket }}
+
+# The MySQL server
+[mysqld]
+port = {{ mysql_port }}
+datadir = {{ mysql_datadir }}
+socket = {{ mysql_socket }}
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+# Recommended in standard MySQL setup
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 
+
+# Configuration of slave
+# bind-address = {{ slave_addr }}
+server-id = 2
+log_bin = mysql-bin
+read_only
+relay-log = relay-bin
+relay-log-index = relay-bin.index

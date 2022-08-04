@@ -1,0 +1,9 @@
+---
+gitlab_runner_repository_installation_script_url: "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh"
+ufw_ports: [ '80', '443', '22']
+gitlab_external_url: 'http://gitlab.akulovnetology.ru'
+gitlab_root_password: Root!Root2
+oauth_token: ''
+runner_token_tmp: ''
+runner_token: ''
+runner_token1: ''

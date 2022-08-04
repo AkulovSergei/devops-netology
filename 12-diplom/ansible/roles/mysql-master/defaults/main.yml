@@ -1,0 +1,17 @@
+---
+mysql_port: "3306"
+mysql_socket: /var/lib/mysql/mysql.sock
+master_host_name: db01.akulovnetology.ru
+master_addr: '192.168.108.21'
+slave_host_name: db02.akulovnetology.ru
+slave_addr: '192.168.108.22'
+app_host_name: app.akulovnetology.ru
+mysql_wordpress_user: wordpress
+mysql_wordpress_user_password: wordpress
+mysql_replication_user: replica
+mysql_replication_user_password: replica
+mysql_wordpress_database: wordpress
+master_log_file: master_bin.000001
+mysql_root_user: root
+mysql_root_password: root
+mysql_datadir: /var/lib/mysql

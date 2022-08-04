@@ -1,0 +1,30 @@
+---
+- name: WordPress | Download and Unpack WordPress
+  become: true
+  ansible.builtin.unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: "/var/www/{{ http_host }}"
+    remote_src: yes
+    creates: "/var/www/{{ http_host }}/wordpress"
+- name: WordPress | Set ownership
+  become: true
+  ansible.builtin.file:
+    path: "/var/www/{{ http_host }}/wordpress"
+    state: directory
+    recurse: yes
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+- name: WordPress | Set permissions for directories
+  become: true
+  ansible.builtin.shell: "/usr/bin/find /var/www/{{ http_host }}/wordpress/ -type d -exec chmod 750 {} \\;"
+- name: WordPress | Set permissions for files
+  become: true
+  ansible.builtin.shell: "/usr/bin/find /var/www/{{ http_host }}/wordpress/ -type f -exec chmod 640 {} \\;"
+- name: WordPress | Set up wp-config
+  become: true
+  ansible.builtin.template:
+    src: wp-config.php.j2
+    dest: "/var/www/{{ http_host }}/wordpress/wp-config.php"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+  notify: restart apache service

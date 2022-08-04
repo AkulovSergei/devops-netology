@@ -1,0 +1,46 @@
+---
+- name: HTTPS | Set "{{ www_domain_name }}" config
+  become: true
+  ansible.builtin.template:
+    src: "{{ www_domain_name }}.j2"
+    dest: "/etc/nginx/conf.d/{{ www_domain_name }}.conf"
+    mode: 0644
+    group: nginx
+    owner: nginx
+  notify: restart nginx service
+- name: HTTPS | Set "{{ gitlab_domain_name }}" config
+  become: true
+  ansible.builtin.template:
+    src: "{{ gitlab_domain_name }}.j2"
+    dest: "/etc/nginx/conf.d/{{ gitlab_domain_name }}.conf"
+    mode: 0644
+    group: nginx
+    owner: nginx
+  notify: restart nginx service
+- name: HTTPS | Set "{{ grafana_domain_name }}" config
+  become: true
+  ansible.builtin.template:
+    src: "{{ grafana_domain_name }}.j2"
+    dest: "/etc/nginx/conf.d/{{ grafana_domain_name }}.conf"
+    mode: 0644
+    group: nginx
+    owner: nginx
+  notify: restart nginx service
+- name: HTTPS | Set "{{ prometheus_domain_name }}" config
+  become: true
+  ansible.builtin.template:
+    src: "{{ prometheus_domain_name }}.j2"
+    dest: "/etc/nginx/conf.d/{{ prometheus_domain_name }}.conf"
+    mode: 0644
+    group: nginx
+    owner: nginx
+  notify: restart nginx service
+- name: HTTPS | Set "{{ alertmanager_domain_name }}" config
+  become: true
+  ansible.builtin.template:
+    src: "{{ alertmanager_domain_name }}.j2"
+    dest: "/etc/nginx/conf.d/{{ alertmanager_domain_name }}.conf"
+    mode: 0644
+    group: nginx
+    owner: nginx
+  notify: restart nginx service

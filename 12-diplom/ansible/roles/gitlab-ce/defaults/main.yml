@@ -1,0 +1,6 @@
+gitlab_dependencies: [ 'openssh-server', 'postfix', 'curl', 'openssl', 'tzdata' ]
+gitlab_repository_installation_script_url: "https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh"
+ufw_ports: [ '80', '443', '22']
+gitlab_external_url: 'http://gitlab.akulovnetology.ru'
+gitlab_root_password: Root!Root2
+runner_token: ''

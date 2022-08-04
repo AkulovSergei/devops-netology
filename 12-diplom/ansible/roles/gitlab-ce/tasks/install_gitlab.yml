@@ -1,0 +1,22 @@
+---
+- name: GitLab | Install dependencies
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ gitlab_dependencies }}"
+- name: GitLab | Download repository installation script
+  ansible.builtin.get_url:
+    url: "{{ gitlab_repository_installation_script_url }}"
+    dest: /tmp/gitlab_install_repository.sh
+- name: GitLab | Install repository
+  become: true
+  ansible.builtin.command: bash /tmp/gitlab_install_repository.sh
+- name: GitLab | Install GitLab-CE
+  become: true
+  ansible.builtin.package:
+    name: gitlab-ce
+    state: present
+  environment:
+    GITLAB_ROOT_PASSWORD: "{{ gitlab_root_password }}"
+    EXTERNAL_URL: "{{ gitlab_external_url }}"

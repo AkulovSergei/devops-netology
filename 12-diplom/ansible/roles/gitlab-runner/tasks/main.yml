@@ -1,0 +1,7 @@
+---
+- name: GitLab-runner| Install packages
+  ansible.builtin.include_tasks:
+    file: install_gitlab_runner.yml
+- name: GitLab-runner| Config GitLab Runner
+  ansible.builtin.include_tasks:
+    file: config_gitlab_runner.yml

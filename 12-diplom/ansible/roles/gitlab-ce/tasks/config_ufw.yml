@@ -1,0 +1,8 @@
+---
+- name: "UFW - Allow HTTP on port {{ http_port }}"
+  become: true
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items: "{{ ufw_ports }}"

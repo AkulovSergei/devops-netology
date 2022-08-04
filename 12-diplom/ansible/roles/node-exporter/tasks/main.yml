@@ -1,0 +1,7 @@
+---
+- name: Node Exporter | Install
+  ansible.builtin.include_tasks:
+    file: install_node_exporter.yml
+- name: Node Exporter | Start
+  ansible.builtin.include_tasks:
+    file: start_node_exporter.yml

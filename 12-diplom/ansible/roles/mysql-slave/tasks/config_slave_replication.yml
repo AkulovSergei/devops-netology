@@ -1,0 +1,25 @@
+---
+- name: Slave MySQL | Get master replication status
+  become: true
+  community.mysql.mysql_replication: 
+    mode: getmaster
+    login_host: "{{ master_host_name }}"
+    login_user: "{{ mysql_replication_user }}"
+    login_password: "{{ mysql_replication_user_password }}"
+  register: master_info
+- name: Slave MySQL | Configure replication
+  become: true
+  community.mysql.mysql_replication:
+    mode: changemaster
+    master_host: "{{ master_host_name }}"
+    master_user: "{{ mysql_replication_user}}"
+    master_password: "{{ mysql_replication_user_password }}"
+    master_log_file: "{{ master_info.File }}"
+    master_log_pos: "{{ master_info.Position }}"
+    login_password: "{{ mysql_root_password }}"
+- name: Slave MySQL | Start replication
+  become: true
+  community.mysql.mysql_replication:
+    mode: startslave
+    login_password: "{{ mysql_root_password }}"
+  notify: restart MySQL service

@@ -1,0 +1,14 @@
+---
+email: CERT@AKULOVNETOLOGY.RU
+letsencrypt_keys_dir: /var/www/letsencrypt
+domain_name: akulovnetology.ru
+www_domain_name: www.akulovnetology.ru
+www_proxy_addr: 'http://app.akulovnetology.ru'
+gitlab_domain_name: gitlab.akulovnetology.ru
+gitlab_proxy_addr: 'http://gitlab.akulovnetology.ru'
+grafana_domain_name: grafana.akulovnetology.ru
+grafana_proxy_addr: 'http://monitoring.akulovnetology.ru:3000/'
+prometheus_domain_name: prometheus.akulovnetology.ru
+prometheus_proxy_addr: 'http://monitoring.akulovnetology.ru:9090/'
+alertmanager_domain_name: alertmanager.akulovnetology.ru
+alertmanager_proxy_addr: 'http://monitoring.akulovnetology.ru:9093/'

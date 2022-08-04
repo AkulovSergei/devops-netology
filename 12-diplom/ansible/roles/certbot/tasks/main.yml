@@ -1,0 +1,10 @@
+---
+- name: Certbot | Install package
+  ansible.builtin.include_tasks:
+    file: install_yum.yml
+- name: Certbot | Create directories
+  ansible.builtin.include_tasks:
+    file: create_dir.yml 
+- name: Certbot | Get Certificates
+  ansible.builtin.include_tasks:
+    file: get_cert.yml

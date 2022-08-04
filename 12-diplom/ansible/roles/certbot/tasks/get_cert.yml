@@ -1,0 +1,6 @@
+---
+# Generate certificates with certbot
+- name: Certbot | Get the certificate
+  become: true
+  ansible.builtin.shell:
+    cmd: certbot --nginx --agree-tos --no-eff-email --email {{ email }} -w {{ letsencrypt_keys_dir }} -d {{ domain_name }} -d {{ www_domain_name }} -d {{ gitlab_domain_name }} -d {{ grafana_domain_name }} -d {{ prometheus_domain_name }} -d {{ alertmanager_domain_name }}

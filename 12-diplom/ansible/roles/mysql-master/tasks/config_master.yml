@@ -1,0 +1,36 @@
+---
+- name: Master MySQL | Config
+  become: true
+  ansible.builtin.template:
+    src: master.cnf.j2
+    dest: /etc/my.cnf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart MySQL service
+- name: Master MySQL | Create wordpress databases
+  become: true
+  community.mysql.mysql_db:
+    name: "{{ mysql_wordpress_database }}"
+    state: present
+    login_user: "{{ mysql_root_user }}"
+    login_password: "{{ mysql_root_password }}"
+- name: Master MySQL | Create wordpress user
+  become: true
+  community.mysql.mysql_user:
+    name: "{{ mysql_wordpress_user }}"
+    host: '%'
+    login_password: "{{ mysql_root_password }}"
+    password: "{{ mysql_wordpress_user_password }}"
+    priv: '{{ mysql_wordpress_database }}.*:ALL'
+    state: present
+- name: Master MySQL | Create replica user
+  become: true
+  community.mysql.mysql_user:
+    name: "{{ mysql_replication_user }}"
+    host: "{{ slave_host_name }}"
+    password: "{{ mysql_replication_user_password }}"
+    login_password: "{{ mysql_root_password }}"
+    priv: '*.*:REPLICATION SLAVE,REPLICATION CLIENT'
+    state: present
+  notify: restart MySQL service

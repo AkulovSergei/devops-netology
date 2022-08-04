@@ -1,0 +1,8 @@
+---
+- name: restart alertmanager
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: alertmanager
+    state: restarted
+    enabled: yes

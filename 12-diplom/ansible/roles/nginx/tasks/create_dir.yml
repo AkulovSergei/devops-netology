@@ -1,0 +1,25 @@
+---
+- name: "Create required directories in /etc/nginx"
+  become: true
+  file:
+    path: "/etc/nginx/conf.d"
+    state: directory
+    owner: nginx
+    group: nginx
+    mode: 0644
+- name: "Create the folder for the challenges"
+  become: true
+  file:
+      path: "/var/www/letsencrypt/.well-known/acme-challenge"
+      state: directory
+      owner: nginx
+      group: nginx
+      mode: 0644
+- name: Cerbot | Create snippets folder for nginx config
+  become: true
+  file:
+      path: "/etc/nginx/snippets"
+      state: directory
+      owner: nginx
+      group: nginx
+      mode: 0644

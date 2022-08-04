@@ -1,0 +1,6 @@
+---
+- name: GitLab | Create Token for Runner 
+  become: true
+  ansible.builtin.command: |
+    gitlab-rails runner -e production "puts Gitlab::CurrentSettings.current_application_settings.runners_registration_token"
+  register: runner_token

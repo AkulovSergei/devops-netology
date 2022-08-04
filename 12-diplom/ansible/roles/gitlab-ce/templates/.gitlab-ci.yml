@@ -1,0 +1,16 @@
+stages:
+  - deploy
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan -H app.akulovnetology.ru > ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+ 
+deploy:
+  stage: deploy
+  script:
+    - rsync -q -rvz --links --delete --force --exclude '.git/' --exclude '.gitlab-ci.yml' --exclude='wp-config.php' $CI_PROJECT_DIR/ ubuntu@app.akulovnetology.ru:/var/www/app.akulovnetology.ru/wordpress/

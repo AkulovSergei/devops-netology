@@ -1,0 +1,14 @@
+---
+- name: Slave MySQL | Config
+  become: true
+  ansible.builtin.template:
+    src: slave.cnf.j2
+    dest: /etc/my.cnf
+    owner: root
+    group: root
+    mode: 0644
+- name: Slave MySQL | Restart MySQL on Slave
+  become: true
+  ansible.builtin.service:
+    name: mysqld
+    state: restarted

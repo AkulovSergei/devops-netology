@@ -1,0 +1,16 @@
+---
+- name: NGINX| Selinux Close
+  ansible.builtin.include_tasks:
+    file: selinux_close.yml
+- name: NGINX| Add repo
+  ansible.builtin.include_tasks:
+    file: add_repo.yml
+- name: NGINX | Install package
+  ansible.builtin.include_tasks:
+    file: install_yum.yml
+- name: NGINX | Create folders
+  ansible.builtin.include_tasks:
+    file: create_dir.yml
+- name: NGINX | Configure service
+  ansible.builtin.include_tasks:
+   file: set_config.yml

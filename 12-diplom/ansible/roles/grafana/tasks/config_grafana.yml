@@ -1,0 +1,35 @@
+---
+- name: Grafana | Config datasource
+  become: true
+  ansible.builtin.template:
+    src: datasource.yml
+    dest: /etc/grafana/provisioning/datasources/datasource.yml 
+    owner: grafana
+    group: grafana
+    mode: 0644
+  notify: restart grafana
+- name: Grafana | Config datasource 2
+  become: true
+  ansible.builtin.template:
+    src: dashboard.yml
+    dest: /etc/grafana/provisioning/dashboards/dashboard.yml 
+    owner: grafana
+    group: grafana
+    mode: 0644
+  notify: restart grafana
+- name: Grafana | Config dashboards
+  become: true
+  ansible.builtin.copy:
+    src: ./templates/dashboards
+    dest: /etc/grafana/provisioning/dashboards
+    owner: grafana
+    group: grafana
+    mode: 0644
+  notify: restart grafana
+- name: Grafana | Enable and start Grafana systemd unit
+  become: true
+  ansible.builtin.systemd:
+    name: grafana-server
+    enabled: true
+    state: started
+    daemon_reload: true

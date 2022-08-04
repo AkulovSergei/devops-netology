@@ -1,0 +1,7 @@
+---
+domain_name: akulovnetology.ru
+www_domain_name: www.akulovnetology.ru
+gitlab_domain_name: gitlab.akulovnetology.ru
+grafana_domain_name: grafana.akulovnetology.ru
+prometheus_domain_name: prometheus.akulovnetology.ru
+alertmanager_domain_name: alertmanager.akulovnetology.ru

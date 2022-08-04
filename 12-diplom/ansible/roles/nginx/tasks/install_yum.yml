@@ -1,0 +1,12 @@
+---
+- name: NGINX | Install
+  become: true
+  ansible.builtin.yum:
+    name: nginx
+    state: latest
+- name: NGINX | Start
+  become: true
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes

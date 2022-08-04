@@ -1,0 +1,13 @@
+---
+- name: WordPress| Install LAMP stack
+  ansible.builtin.include_tasks:
+    file: install_lamp.yml
+- name: WordPress| Config Apache Server
+  ansible.builtin.include_tasks:
+    file: config_apache.yml
+- name: WordPress| Config UFW
+  ansible.builtin.include_tasks:
+    file: config_ufw.yml
+- name: WordPress| Install and Config WordPress
+  ansible.builtin.include_tasks:
+    file: install_wordpress.yml

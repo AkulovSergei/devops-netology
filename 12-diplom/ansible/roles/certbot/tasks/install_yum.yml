@@ -1,0 +1,17 @@
+---
+# Certbot package install
+- name: NGINX | Add epel-release repo
+  become: true
+  ansible.builtin.yum:
+    name: epel-release
+    state: present
+- name: Certbot | Install certbot
+  become: true
+  ansible.builtin.yum:
+    name: certbot
+    state: latest
+- name: Certbot | Install certbot-nginx
+  become: true
+  ansible.builtin.yum:
+    name: certbot-nginx
+    state: latest

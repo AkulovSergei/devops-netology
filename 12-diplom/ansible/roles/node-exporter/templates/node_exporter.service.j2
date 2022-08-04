@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus Node Exporter
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+User={{ node_exporter_user }}  
+Group={{ node_exporter_user }}
+ExecStart={{ node_exporter_dir }}/node_exporter --web.listen-address=:9101
+
+[Install]
+WantedBy=multi-user.target

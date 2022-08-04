@@ -1,0 +1,18 @@
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+ExecStart={{ prometheus_bin_dir }}/prometheus \
+    --config.file /etc/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/lib/prometheus \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries \
+    --web.external-url=http://monitoring.akulovnetology.ru:9090
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=default.target

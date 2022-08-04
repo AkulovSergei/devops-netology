@@ -1,0 +1,9 @@
+---
+- name: Cerbot | Create the folder for letsencrypt
+  become: true
+  file:
+      path: "/var/www/letsencrypt"
+      state: directory
+      owner: nginx
+      group: nginx
+      mode: 0644

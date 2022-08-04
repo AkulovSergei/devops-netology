@@ -1,0 +1,7 @@
+---
+- name: Prometheus | Install
+  ansible.builtin.include_tasks:
+    file: install_prometheus.yml
+- name: Prometheus | Config and start
+  ansible.builtin.include_tasks:
+    file: start_prometheus.yml

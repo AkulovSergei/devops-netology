@@ -1,0 +1,9 @@
+---
+alertmanager_install_url: https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz
+alertmanager_bin_dir: /usr/local/bin/alertmanager-0.24.0.linux-amd64
+alertmanager_user: alertmanager
+alertmanager_data_dir: /var/lib/alertmanager
+alertmanager_conf_dir: /etc/alertmanager
+auth_email_username: akulovnetology@yandex.ru
+auth_email_password: *****
+ 

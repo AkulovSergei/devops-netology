@@ -1,0 +1,13 @@
+---
+- name: GitLab| Install packages
+  ansible.builtin.include_tasks:
+    file: install_gitlab.yml
+- name: GitLab| Config firewall
+  ansible.builtin.include_tasks:
+    file: config_ufw.yml
+- name: GitLab| Config GitLab
+  ansible.builtin.include_tasks:
+    file: config_gitlab.yml
+- name: GitLab| Create Token for Runner 
+  ansible.builtin.include_tasks:
+    file: create_runner_token.yml

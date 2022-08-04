@@ -1,0 +1,7 @@
+---
+- name: Alertmanager | Install
+  ansible.builtin.include_tasks:
+    file: install_alertmanager.yml
+- name: Alertmanager | Config and start
+  ansible.builtin.include_tasks:
+    file: config_alertmanager.yml

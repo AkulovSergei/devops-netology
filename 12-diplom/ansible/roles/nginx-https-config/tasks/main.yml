@@ -1,0 +1,4 @@
+---
+- name: NGINX | Config NGINX for use HTTPS
+  ansible.builtin.include_tasks:
+    file: set_config.yml

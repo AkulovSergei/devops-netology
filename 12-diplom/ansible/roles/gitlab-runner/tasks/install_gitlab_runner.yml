@@ -1,0 +1,24 @@
+---
+- name: GitLab-runner | Install dependencies
+  become: true
+  ansible.builtin.apt:
+    name: 
+      - openssh-server
+      - postfix
+      - curl
+      - openssl
+      - tzdata
+      - rsync
+    state: present
+- name: GitLab-runner | Download repository installation script
+  ansible.builtin.get_url:
+    url: "{{ gitlab_runner_repository_installation_script_url }}"
+    dest: /tmp/gitlab_runner_install_repository.sh
+- name: GitLab-runner | Install repository
+  become: true
+  ansible.builtin.command: bash /tmp/gitlab_runner_install_repository.sh
+- name: GitLab-runner | Install GitLab-Runner
+  become: true
+  ansible.builtin.package:
+    name: gitlab-runner
+    state: present

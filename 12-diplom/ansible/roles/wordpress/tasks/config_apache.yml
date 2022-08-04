@@ -1,0 +1,27 @@
+---
+- name: Apache | Create document root
+  become: true
+  ansible.builtin.file:
+    path: "/var/www/{{ http_host }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0755'
+- name: Apache | Set up Apache virtualhost
+  become: true
+  ansible.builtin.template:
+    src: apache.conf.j2
+    dest: "/etc/apache2/sites-available/{{ http_conf }}"
+  notify: reload apache service
+- name: Apache | Enable rewrite module
+  become: true
+  ansible.builtin.shell: /usr/sbin/a2enmod rewrite
+  notify: reload apache service
+- name: Apache | Enable new site
+  become: true
+  ansible.builtin.shell: /usr/sbin/a2ensite {{ http_conf }}
+  notify: reload apache service
+- name: Disable default Apache site
+  become: true
+  ansible.builtin.shell: /usr/sbin/a2dissite 000-default.conf
+  notify: reload apache service

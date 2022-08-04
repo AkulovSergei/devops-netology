@@ -1,0 +1,73 @@
+---
+- name: NGINX | Set config
+  become: true
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    group: nginx
+    owner: nginx
+    mode: 0644
+  notify: restart nginx service  
+- name: NGINX | Set Letsencrypt Config
+  become: true
+  ansible.builtin.template:
+    src: letsencrypt.conf.j2
+    dest: /etc/nginx/snippets/letsencrypt.conf
+    group: nginx
+    owner: nginx
+    mode: 0644
+  notify: restart nginx service 
+- name: NGINX | Set SSL Config
+  become: true
+  ansible.builtin.template:
+    src: ssl.conf.j2
+    dest: /etc/nginx/snippets/ssl.conf
+    group: nginx
+    owner: nginx
+    mode: 0644
+  notify: restart nginx service 
+- name: NGINX | Set config for PROXY WP 
+  become: true   
+  ansible.builtin.template:
+    src: www.akulovnetology.ru.j2
+    dest: /etc/nginx/conf.d/www.akulovnetology.ru.conf
+    group: nginx
+    owner: nginx
+    mode: 0644
+  notify: restart nginx service
+- name: NGINX | Set config for PROXY ALERTMANAGER 
+  become: true   
+  ansible.builtin.template:
+    src: alertmanager.akulovnetology.ru.j2
+    dest: /etc/nginx/conf.d/alertmanager.akulovnetology.ru.conf
+    group: nginx
+    owner: nginx
+    mode: 0644
+  notify: restart nginx service
+- name: NGINX | Set config for PROXY GITLAB 
+  become: true   
+  ansible.builtin.template:
+    src: gitlab.akulovnetology.ru.j2
+    dest: /etc/nginx/conf.d/gitlab.akulovnetology.ru.conf
+    group: nginx
+    owner: nginx
+    mode: 0644
+  notify: restart nginx service
+- name: NGINX | Set config for PROXY GRAFANA 
+  become: true   
+  ansible.builtin.template:
+    src: grafana.akulovnetology.ru.j2
+    dest: /etc/nginx/conf.d/grafana.akulovnetology.ru.conf
+    group: nginx
+    owner: nginx
+    mode: 0644
+  notify: restart nginx service
+- name: NGINX | Set config for PROXY PROMETHEUS 
+  become: true   
+  ansible.builtin.template:
+    src: prometheus.akulovnetology.ru.j2
+    dest: /etc/nginx/conf.d/prometheus.akulovnetology.ru.conf
+    group: nginx
+    owner: nginx
+    mode: 0644
+  notify: restart nginx service

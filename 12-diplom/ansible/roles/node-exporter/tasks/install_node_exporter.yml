@@ -1,0 +1,31 @@
+---
+- name: Node Exporter | Create the node_exporter group
+  become: true
+  ansible.builtin.group:
+    name: "{{ node_exporter_user }}"
+    state: present
+    system: true
+- name: Node Exporter | Create the node_exporter user
+  become: true
+  user:
+    name: "{{ node_exporter_user }}"
+    groups: "{{ node_exporter_user }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    create_home: false
+    home: /
+- name: Node Exporter | Get bin
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ node_exporter_install_url }}"
+    dest: /usr/local/bin/
+    remote_src: yes
+- name: Node Exporter | Set ownership
+  become: true
+  ansible.builtin.file:
+    path: "{{ node_exporter_dir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ node_exporter_user }}"
+    group: "{{ node_exporter_user }}"

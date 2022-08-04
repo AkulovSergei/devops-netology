@@ -1,0 +1,12 @@
+---
+php_modules: [ 'php-curl', 'php-gd', 'php-mbstring', 'php-xml', 'php-xmlrpc', 'php-soap', 'php-intl', 'php-zip', 'php-dom' ]
+lamp_packages: [ 'apache2', 'python3-pymysql', 'php', 'php-mysql', 'libapache2-mod-php', 'rsync' ]
+http_host: app.akulovnetology.ru
+http_conf: "akulovnetology.ru.conf"
+app_user: ubuntu
+ufw_ports: [ '80', '443']
+http_port: 80
+master_host_name: db01.akulovnetology.ru
+mysql_wordpress_user: wordpress
+mysql_wordpress_user_password: wordpress
+mysql_wordpress_database: wordpress
